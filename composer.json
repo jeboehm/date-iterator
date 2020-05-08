@@ -1,0 +1,34 @@
+{
+  "name": "jeboehm/date-iterator",
+  "description": "Iterate through date ranges",
+  "type": "library",
+  "require": {
+    "php": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.1",
+    "doctrine/coding-standard": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jeboehm\\DateIterator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jeboehm\\DateIterator\\Tests\\": "tests/"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jeffrey Böhm",
+      "email": "hello@jeffrey-boehm.de"
+    }
+  ],
+  "scripts": {
+    "csfix": "phpcbf",
+    "cscheck": "phpcs",
+    "phpunit": "phpunit tests/"
+  }
+}
