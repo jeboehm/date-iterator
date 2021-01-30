@@ -16,7 +16,7 @@ class DayIteratorTest extends TestCase
         $iterator = new DayIterator(
             DateRange::fromDateTime(
                 new DateTime('2021-05-01'),
-                new DateTime('2021-05-14')
+                new DateTime('2021-05-16')
             )
         );
 
