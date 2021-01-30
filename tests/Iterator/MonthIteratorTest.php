@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jeboehm\DateIterator\Tests\Iterator\DayIterator;
+namespace Jeboehm\DateIterator\Tests\Iterator;
 
 use Jeboehm\DateIterator\Iterator\MonthIterator;
 use Jeboehm\DateIterator\Model\DateRange;

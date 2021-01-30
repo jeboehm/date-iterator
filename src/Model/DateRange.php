@@ -12,7 +12,7 @@ final class DateRange
     private DateTimeImmutable $start;
     private DateTimeImmutable $end;
 
-    private function __construct(DateTimeImmutable $start, DateTimeImmutable $end)
+    public function __construct(DateTimeImmutable $start, DateTimeImmutable $end)
     {
         $this->start = $start;
         $this->end = $end;

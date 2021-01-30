@@ -2,28 +2,59 @@
 
 declare(strict_types=1);
 
-namespace Jeboehm\DateIterator\Tests\Iterator\DayIterator;
+namespace Jeboehm\DateIterator\Tests\Iterator;
 
+use DateTime;
 use Jeboehm\DateIterator\Iterator\DayIterator;
 use Jeboehm\DateIterator\Model\DateRange;
 use PHPUnit\Framework\TestCase;
 
 class DayIteratorTest extends TestCase
 {
-    private DayIterator $iterator;
-
-    protected function setUp(): void
+    public function testDatesWithBeginningWeekend(): void
     {
-        $this->iterator = new DayIterator(
+        $iterator = new DayIterator(
             DateRange::fromDateTime(
-                new \DateTime('2019-12-03'),
-                new \DateTime('2019-12-10')
+                new DateTime('2021-05-01'),
+                new DateTime('2021-05-14')
             )
         );
+
+        $iterator->setExcludeWeekend(true);
+
+        $expected = [
+            '2021-05-03',
+            '2021-05-04',
+            '2021-05-05',
+            '2021-05-06',
+            '2021-05-07',
+            '2021-05-10',
+            '2021-05-11',
+            '2021-05-12',
+            '2021-05-13',
+            '2021-05-14',
+        ];
+
+        $i = 0;
+
+        foreach ($iterator as $date) {
+            self::assertEquals($expected[$i], $date->format('Y-m-d'));
+
+            $i++;
+        }
+
+        self::assertEquals(10, $i);
     }
 
     public function testDatesWithWeekends(): void
     {
+        $iterator = new DayIterator(
+            DateRange::fromDateTime(
+                new DateTime('2019-12-03'),
+                new DateTime('2019-12-10')
+            )
+        );
+
         $expected = [
             '2019-12-03',
             '2019-12-04',
@@ -37,18 +68,25 @@ class DayIteratorTest extends TestCase
 
         $i = 0;
 
-        foreach ($this->iterator as $date) {
-            $this->assertEquals($expected[$i], $date->format('Y-m-d'));
+        foreach ($iterator as $date) {
+            self::assertEquals($expected[$i], $date->format('Y-m-d'));
 
             $i++;
         }
 
-        $this->assertEquals(8, $i);
+        self::assertEquals(8, $i);
     }
 
     public function testDateWithoutWeekends(): void
     {
-        $this->iterator->setExcludeWeekend(true);
+        $iterator = new DayIterator(
+            DateRange::fromDateTime(
+                new DateTime('2019-12-03'),
+                new DateTime('2019-12-10')
+            )
+        );
+
+        $iterator->setExcludeWeekend(true);
 
         $expected = [
             '2019-12-03',
@@ -61,12 +99,12 @@ class DayIteratorTest extends TestCase
 
         $i = 0;
 
-        foreach ($this->iterator as $date) {
-            $this->assertEquals($expected[$i], $date->format('Y-m-d'));
+        foreach ($iterator as $date) {
+            self::assertEquals($expected[$i], $date->format('Y-m-d'));
 
             $i++;
         }
 
-        $this->assertEquals(6, $i);
+        self::assertEquals(6, $i);
     }
 }

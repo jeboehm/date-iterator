@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jeboehm\DateIterator\Iterator;
 
 use DateInterval;
+use Jeboehm\DateIterator\Model\DateRange;
 
 class DayIterator extends AbstractDateIterator
 {
@@ -13,6 +14,13 @@ class DayIterator extends AbstractDateIterator
     public function setExcludeWeekend(bool $excludeWeekend): void
     {
         $this->excludeWeekend = $excludeWeekend;
+        $start = $this->range->getStart();
+
+        if ($excludeWeekend === true && $start->format('N') >= 6) {
+            $start = $start->add(new DateInterval(sprintf('P%dD', 8 - (int)$start->format('N'))));
+
+            $this->range = new DateRange($start, $this->range->getEnd());
+        }
     }
 
     public function next(): void

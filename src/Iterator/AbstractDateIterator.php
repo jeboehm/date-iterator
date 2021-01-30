@@ -11,7 +11,7 @@ use Jeboehm\DateIterator\Model\DateRange;
 
 abstract class AbstractDateIterator implements Iterator
 {
-    private DateRange $range;
+    protected DateRange $range;
     protected DateTime $pointer;
 
     public function __construct(DateRange $range)
